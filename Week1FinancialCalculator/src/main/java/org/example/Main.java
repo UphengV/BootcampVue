@@ -22,7 +22,7 @@ public class Main {
         double months = loanL * 12;
 
         double monthlyP = amountP * (monthlyRate *Math.pow(1+ monthlyRate, months)) / (Math.pow(1+monthlyRate, months)-1);
-        //used Math.pow twice because if you do the same for the first you do again
+        //used Math.pow twice ^ because of the / and equation
 
 
         //total interest = (M * n) - P

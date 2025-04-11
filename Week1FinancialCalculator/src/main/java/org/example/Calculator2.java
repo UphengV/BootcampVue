@@ -26,7 +26,7 @@ public class Calculator2 {
 
         double totalInterest = fV - p;
 
-        System.out.printf("Your ending value is %.2f and your earned interest is %.2f" , fV , totalInterest);
+        System.out.printf("Your ending value is $%.2f and your earned interest is $%.2f" , fV , totalInterest);
 
     }
 }

@@ -169,14 +169,23 @@ public class Book {
                     }
                 }
 
+
                 System.out.println("Input the ID.");
+                int userCheckout = scanner.nextInt();
+
                 System.out.println("Please type your name");
                 scanner.nextLine();
                 String userName = scanner.next();
 
+
+                for (int i = 0; i < inventory.length; i++) {
+                    Book listBooks = inventory[i];
+                    if (inventory[i].getId() == userCheckout && inventory[i].getCheckedOutTo().equals(""));
+                inventory[i].setCheckedOutTo(userName);}
                 System.out.println("Thank you! " + userName);
                 System.out.println("1.)Exit");
                 int exitSecondScreen2 = scanner.nextInt();
+                mockInventory();
                 break;
             case 3:
                 System.out.println(mockInventory());

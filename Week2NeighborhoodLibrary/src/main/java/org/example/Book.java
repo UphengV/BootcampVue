@@ -214,11 +214,11 @@ public class Book {
     }
 
     public static void checkInBooks(Book[] inventory, Scanner scanner) {
-        System.out.println("These books are available!");
+        System.out.println("Check in your book!");
         for (int i = 0; i < inventory.length; i++) {
             Book listBooks = inventory[i];
 
-            if (listBooks.getCheckedOutTo().equals("")) {
+            if (!listBooks.getCheckedOutTo().equals("")) {
 
                 System.out.println(listBooks.getId() + "." + " " + listBooks.getTitle());
             }
@@ -247,6 +247,7 @@ public class Book {
                 break;
             default:
                 System.out.println("Error you can't read..");
+
         }
     }
 }

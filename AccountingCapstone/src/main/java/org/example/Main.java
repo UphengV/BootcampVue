@@ -82,7 +82,6 @@ public class Main {
                     String userInput3 = scanner.nextLine();
 
                     if (userInput.equalsIgnoreCase("Yes") && userInput2.equalsIgnoreCase("Yes") && userInput3.equalsIgnoreCase("Yes")) {
-
                         return;
                     } else {
                         System.out.println("Looks like you are stuck with me :3");
@@ -186,7 +185,7 @@ public class Main {
 
 
             } catch (DateTimeParseException e) {
-                System.out.println("Invalid!");
+                System.out.println("Invalid input correct order!");
                 return;
             }
 
@@ -223,7 +222,7 @@ public class Main {
                 System.out.println("Deposit added!");
 
             } catch (DateTimeParseException e) {
-                System.out.println("Invalid!");
+                System.out.println("Invalid input correct order!");
                 return;
             }
 

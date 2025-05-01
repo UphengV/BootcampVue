@@ -87,6 +87,7 @@ public class Main {
                     } else {
                         System.out.println("Looks like you are stuck with me :3");
                     }
+                    break;
                 default:
                     System.out.println("Invalid!");
                     break;

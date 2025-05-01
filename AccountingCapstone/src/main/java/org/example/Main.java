@@ -185,8 +185,10 @@ public class Main {
 
                 Transactions payment = new Transactions(date, time, description, vendor, amount);
                 Transaction.add(payment);
+                FileManager.appendTransaction(payment);
 
                 System.out.println("Payment recorded!");
+
 
             }
             catch (DateTimeParseException e){
@@ -224,6 +226,7 @@ public class Main {
 
                     Transactions deposit = new Transactions(date, time, description, vendor, amount);
                     Transaction.add(deposit);
+                    FileManager.appendTransaction(deposit);
 
                     System.out.println("Deposit added!");
 

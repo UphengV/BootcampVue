@@ -5,6 +5,8 @@ package org.example;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -161,10 +163,15 @@ public class Main {
             try{
 
                 System.out.println("Enter date (yyyy-MM-dd):");
-                LocalDate date = LocalDate.parse(scanner.nextLine());
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate date = LocalDate.parse(scanner.nextLine() , dateFormatter);
+
 
                 System.out.println("Enter time (HH:mm:ss):");
-                LocalTime time = LocalTime.parse(scanner.nextLine());
+                DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+                LocalTime time = LocalTime.parse(scanner.nextLine() , timeFormatter);
+
+
 
                 System.out.println("Enter description:");
                 String description = scanner.nextLine();
@@ -179,12 +186,12 @@ public class Main {
                 Transactions payment = new Transactions(date, time, description, vendor, amount);
                 Transaction.add(payment);
 
-
-
                 System.out.println("Payment recorded!");
+
             }
-            catch (InputMismatchException e){
+            catch (DateTimeParseException e){
                 System.out.println("Invalid!");
+                return;
             }
 
 
@@ -194,11 +201,16 @@ public class Main {
         public static void addDeposit(List<Transactions> Transaction , Scanner scanner){
                 try {
 
-                    System.out.println("Enter date (yyyy-MM-DD");
-                    LocalDate date = LocalDate.parse(scanner.nextLine());
+                    System.out.println("Enter date (yyyy-MM-dd)");
+                    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    LocalDate date = LocalDate.parse(scanner.nextLine() , dateFormatter);
 
-                    System.out.println("Enter time (HH:MM:SS)");
-                    LocalTime time = LocalTime.parse(scanner.nextLine());
+
+                    System.out.println("Enter time (HH:mm:ss)");
+                    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+                    LocalTime time = LocalTime.parse(scanner.nextLine() , timeFormatter);
+
+
 
                     System.out.println("Enter description");
                     String description = scanner.nextLine();
@@ -216,8 +228,9 @@ public class Main {
                     System.out.println("Deposit added!");
 
                 }
-                catch (InputMismatchException e){
+                catch (DateTimeParseException e){
                     System.out.println("Invalid!");
+                    return;
                 }
 
 

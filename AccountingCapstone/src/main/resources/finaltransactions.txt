@@ -1,3 +1,6 @@
 date|time|description|vendor|amount
 2024-10-04|10:00:00|keyboard|Amazon|30.00
 2023-11-04|11:04:00|Pokemon|Walmart|-1000.00
+2003-01-10|10:00|Taco's|Taco Bell|100
+2003-04-10|11:00|Yogurt|Mall|-90
+2010-09-12|08:30|Shoes|Mall|80

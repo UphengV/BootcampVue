@@ -124,7 +124,9 @@ public class Main {
 
             boolean found = false;
             for (Transactions t : transactions) {
-                if (t.getAmount().compareTo(BigDecimal.ZERO) < 0) {
+                //comparing amount to 0 (shows negative)
+                //english terms If this transaction's amount is less than zero (it's a negative number), then treat it like a payment
+                if (t.getAmount().compareTo(BigDecimal.ZERO) < 0)  {
                     System.out.println(t.getDate() + " | " + t.getTime() + " | " + t.getDescription() + " | " + t.getVendor() + " | " + t.getAmount());
                     found = true;
                 }
@@ -138,6 +140,7 @@ public class Main {
 
         boolean found = false;
         for (Transactions t : transactions) {
+            //comparing amount to 0 (shows positive)
             if (t.getAmount().compareTo(BigDecimal.ZERO) > 0) {
                 System.out.println(t.getDate() + " | " + t.getTime() + " | " + t.getDescription() + " | " + t.getVendor() + " | " + t.getAmount());
                 found = true;

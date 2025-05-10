@@ -14,10 +14,15 @@ public class DealershipFileManager {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             bufferedReader.readLine();
+            String dealerShipInfo = bufferedReader.readLine();
+            String[] infoParts = dealerShipInfo.split("\\|");
+            String name = infoParts[0].trim();
+            String address = infoParts[1].trim();
+            String phone = infoParts[2].trim();
+
+            Dealership dealership = new Dealership(name,address,phone);
 
             String input;
-
-            Dealership dealership = new Dealership("my dealership", "123 main st", "555-1234");
             while ((input = bufferedReader.readLine()) != null) {
 
                 String[] parts = input.split("\\|");

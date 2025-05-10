@@ -14,8 +14,40 @@ public class UserInterface {
     }
 
     public void display() {
-        System.out.println("Welcome to " + dealership.getAllVehicles().size() + " vehicles available.");
-        processAllVehiclesRequest();
+        int choice = -1;
+
+        while (choice != 0) {
+            System.out.println("\n--- DealerShip Menu ---");
+            System.out.println("1.)View all vehicles");
+            System.out.println("2.)Search by price");
+            System.out.println("3.)Search by make and model");
+            System.out.println("4.)Sear by year");
+            System.out.println("5.)Search by color");
+            System.out.println("7.)Search by vehicle type");
+            System.out.println("8.)Add a vehicle");
+            System.out.println("9.)Remove a vehicle");
+            System.out.println("0.)Exit");
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (choice){
+                    case 1:
+                        processAllVehiclesRequest();
+                        break;
+                    case 2:
+                        processGetByPriceRequest();
+                        break;
+                    case 3:
+                        processGetByMakeModelRequest();
+                    case 4:
+                        processGetByYearRequest();
+                        break;
+
+                }
+            }
+
+        }
     }
 
     public void processGetByPriceRequest() {
@@ -110,7 +142,7 @@ public class UserInterface {
 
             Vehicle vehicle = new Vehicle(vin, year, make, model, vehicleType, color, odometer, price);
             dealership.addVehicle(vehicle);
-            DealershipFileManager.appendVehicle(vehicle);
+            DealershipFileManager.saveDealership(dealership);
 
             System.out.println("Vehicle added successfully.");
         } catch (InputMismatchException e) {

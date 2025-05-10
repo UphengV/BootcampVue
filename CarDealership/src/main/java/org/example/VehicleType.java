@@ -5,5 +5,6 @@ public enum VehicleType {
     PICK_UP,
     MINIVAN,
     SUV,
-    SPORTS
+    SPORTS,
+    TRUCK
 }

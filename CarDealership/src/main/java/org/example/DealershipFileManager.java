@@ -6,7 +6,8 @@ import java.util.List;
 
 public class DealershipFileManager {
 
-    public static List<Vehicle> readfile() {
+
+    public static Dealership getDealership() {
 
         try {
             FileReader fileReader = new FileReader("src/main/resources/DealershipWorkshop1.txt");
@@ -16,7 +17,7 @@ public class DealershipFileManager {
 
             String input;
 
-            List<Vehicle> vehicles= new ArrayList<>();
+            Dealership dealership = new Dealership("my dealership", "123 main st", "555-1234");
             while ((input = bufferedReader.readLine()) != null) {
 
                 String[] parts = input.split("\\|");
@@ -31,21 +32,21 @@ public class DealershipFileManager {
                 double price = Double.parseDouble(parts[7].trim());
 
                 Vehicle vehicle = new Vehicle(vin, year, make, model, type, color, odometer, price);
-                vehicles.add(vehicle);
+                dealership.addVehicle(vehicle);
 
             }
 
             bufferedReader.close();
 
-            return vehicles;
+            return dealership;
         } catch (IOException ex) {
             System.out.println("CSV FILE FAILED");
-            return new ArrayList<>();
+            return new Dealership("N/A","N/A","N/A");
         }
 
     }
 
-    public static void appendVehicle(Vehicle vehicle) {
+    public static void saveDealership(Dealership dealership) {
         String filePath = "src/main/resources/DealershipWorkshop1.txt";
         File file = new File(filePath);
         try {
@@ -61,15 +62,19 @@ public class DealershipFileManager {
             if (isEmpty) {
                 writer.write("vin|year|make|model|vehicleType|color|odometer|price\n");
             }
-            writer.write(vehicle.getVin() + "|" +
-                    vehicle.getYear() + "|" +
-                    vehicle.getMake() + "|" +
-                    vehicle.getModel() + "|" +
-                    vehicle.getVehicleType() + "|" +
-                    vehicle.getColor() + "|" +
-                    vehicle.getOdometer() + "|" +
-                    vehicle.getPrice() + "/n");
+            for (Vehicle vehicle : dealership.getAllVehicles()){
+                writer.write(vehicle.getVin() + "|" +
+                        vehicle.getYear() + "|" +
+                        vehicle.getMake() + "|" +
+                        vehicle.getModel() + "|" +
+                        vehicle.getVehicleType() + "|" +
+                        vehicle.getColor() + "|" +
+                        vehicle.getOdometer() + "|" +
+                        vehicle.getPrice() + "/n");
 
+
+
+            }
 
                     writer.close();
         } catch (IOException ex) {

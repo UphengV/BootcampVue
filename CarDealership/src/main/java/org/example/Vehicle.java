@@ -53,4 +53,9 @@ public class Vehicle {
     public double getPrice() {
         return price;
     }
+
+    @Override
+    public String toString(){
+        return "VIN: " + vin +" Year: " + year + " Model: " + model + " Type: " + vehicleType + "Color: " + color + "Price: $" + price;
+    }
 }

@@ -48,6 +48,7 @@ public class DealershipFileManager {
 
     public static void saveDealership(Dealership dealership) {
         String filePath = "src/main/resources/DealershipWorkshop1.txt";
+
         File file = new File(filePath);
         try {
             File folder = file.getParentFile();
@@ -70,7 +71,7 @@ public class DealershipFileManager {
                         vehicle.getVehicleType() + "|" +
                         vehicle.getColor() + "|" +
                         vehicle.getOdometer() + "|" +
-                        vehicle.getPrice() + "/n");
+                        vehicle.getPrice() + "\n");
 
 
 

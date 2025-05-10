@@ -21,8 +21,9 @@ public class UserInterface {
             System.out.println("1.)View all vehicles");
             System.out.println("2.)Search by price");
             System.out.println("3.)Search by make and model");
-            System.out.println("4.)Sear by year");
+            System.out.println("4.)Search by year");
             System.out.println("5.)Search by color");
+            System.out.println("6.)Search by Mileage");
             System.out.println("7.)Search by vehicle type");
             System.out.println("8.)Add a vehicle");
             System.out.println("9.)Remove a vehicle");
@@ -40,11 +41,32 @@ public class UserInterface {
                         break;
                     case 3:
                         processGetByMakeModelRequest();
+                        break;
                     case 4:
                         processGetByYearRequest();
                         break;
-
+                    case 5:
+                        processGetByColorRequest();
+                        break;
+                    case 6:
+                        processGetByMileageRequest();
+                        break;
+                    case 7:
+                        processGetByVehicleTypeRequest();
+                        break;
+                    case 8:
+                        processAddVehicleRequest(dealership.getAllVehicles());
+                        break;
+                    case 9:
+                        processRemoveVehicleRequest();
+                        break;
+                    case 10:
+                        System.exit(0);
+                    default:
+                        System.out.println("what are you up to..?");
                 }
+            }catch (InputMismatchException e){
+                System.out.println("Enter a number bro");
             }
 
         }

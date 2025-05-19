@@ -7,10 +7,12 @@ import java.util.Scanner;
 public class UserInterface {
     private Dealership dealership;
     private Scanner scanner;
+    private ContractDataManager contractManager;
 
     public UserInterface(Dealership dealership) {
         this.dealership = dealership;
         scanner = new Scanner(System.in);
+        contractManager = new ContractDataManager();
     }
 
     public void display() {
@@ -27,6 +29,7 @@ public class UserInterface {
             System.out.println("7.)Search by vehicle type");
             System.out.println("8.)Add a vehicle");
             System.out.println("9.)Remove a vehicle");
+            System.out.println("10.)Add Contract");
             System.out.println("0.)Exit");
             try {
                 choice = scanner.nextInt();
@@ -61,6 +64,9 @@ public class UserInterface {
                         processRemoveVehicleRequest();
                         break;
                     case 10:
+                        processAddContractRequest();
+                        break;
+                    case 11:
                         System.exit(0);
                     default:
                         System.out.println("what are you up to..?");
@@ -192,5 +198,52 @@ public class UserInterface {
             System.out.println("Vehicle not found.");
         }
     }
-}
+        public void processAddContractRequest() {
+            System.out.println("Enter contract type (SALE or LEASE):");
+            String contractType = scanner.nextLine().trim().toUpperCase();
+
+            System.out.println("Enter contract date (YYYYMMDD):");
+            String date = scanner.nextLine().trim();
+
+            System.out.println("Enter customer name:");
+            String customerName = scanner.nextLine().trim();
+
+            System.out.println("Enter customer email:");
+            String customerEmail = scanner.nextLine().trim();
+
+            System.out.println("Enter vehicle VIN:");
+            String vehicleSold = scanner.nextLine().trim();
+
+            System.out.println("Enter vehicle price:");
+            double vehiclePrice;
+            try {
+                vehiclePrice = Double.parseDouble(scanner.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid price. Contract cancelled.");
+                return;
+            }
+
+            Contract contract = null;
+
+            if (contractType.equals("SALE")) {
+                System.out.println("Is the vehicle financed? (YES or NO):");
+                String financedInput = scanner.nextLine().trim().toUpperCase();
+                boolean isFinanced = financedInput.equals("YES");
+
+                contract = new SalesContract(date, customerName, customerEmail, vehicleSold, vehiclePrice, isFinanced);
+
+            } else if (contractType.equals("LEASE")) {
+                contract = new LeaseContract(date, customerName, customerEmail, vehicleSold, vehiclePrice);
+
+            } else {
+                System.out.println("Invalid contract type entered.");
+                return;
+            }
+
+            contractManager.saveContract(contract);
+            System.out.println("Contract saved successfully.");
+        }
+
+    }
+
 

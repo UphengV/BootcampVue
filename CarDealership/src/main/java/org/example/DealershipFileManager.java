@@ -14,6 +14,7 @@ public class DealershipFileManager {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             bufferedReader.readLine();
+
             String dealerShipInfo = bufferedReader.readLine();
             String[] infoParts = dealerShipInfo.split("\\|");
             String name = infoParts[0].trim();

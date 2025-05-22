@@ -64,7 +64,7 @@ public class DealershipFileManager {
             boolean fileExists = file.exists();
             boolean isEmpty = !fileExists || file.length() == 0;
 
-            FileWriter writer = new FileWriter(file, true);
+            FileWriter writer = new FileWriter(file, false);
 
             if (isEmpty) {
                 writer.write("vin|year|make|model|vehicleType|color|odometer|price\n");
@@ -87,5 +87,7 @@ public class DealershipFileManager {
         } catch (IOException ex) {
             System.out.println("Something ain't right");
         }
+
+
     }
 }

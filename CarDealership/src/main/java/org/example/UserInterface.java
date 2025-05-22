@@ -122,7 +122,7 @@ public class UserInterface {
     }
 
     public void processGetByVehicleTypeRequest() {
-        System.out.print("Enter vehicle type (CAR, TRUCK, SUV, etc.): ");
+        System.out.print("Enter vehicle type (TRUCK, SUV, etc.): ");
         String type = scanner.next().toUpperCase();
         List<Vehicle> results = dealership.getVehiclesByType(VehicleType.valueOf(type));
         for (Vehicle v : results) System.out.println(v);
@@ -193,6 +193,7 @@ public class UserInterface {
         }
         if (toRemove != null) {
             dealership.removeVehicle(toRemove);
+            DealershipFileManager.saveDealership(dealership);
             System.out.println("Vehicle removed.");
         } else {
             System.out.println("Vehicle not found.");

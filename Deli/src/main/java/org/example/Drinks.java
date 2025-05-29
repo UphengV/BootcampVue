@@ -5,16 +5,17 @@ public class Drinks extends Sides {
 
     public Drinks(String name) {
         super(name);
-        this.size = size;
+        this.size = name;
     }
 
 
     @Override
     public double getPrice() {
-        return switch (size) {
-            case "Small" -> 2.00;
-            case "Medium" -> 2.50;
-            case "Large" -> 3.00;
+
+        return switch (size.toLowerCase()) {
+            case "small" -> 2.00;
+            case "medium" -> 2.50;
+            case "large" -> 3.00;
             default -> 0.0;
         };
     }

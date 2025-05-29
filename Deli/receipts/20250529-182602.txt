@@ -1,0 +1,16 @@
+Order Summary:
+12" rye (Toasted)
+  - steak
+  - bacon
+  - chicken
+  - roast beef
+  - american
+  - swiss
+  - cheddar
+  - lettuce
+  - onions
+  - guacamole
+Price: $27.25
+Side: large - $3.0
+Side: bbq - $1.5
+Total: $31.75

@@ -150,15 +150,40 @@ public class UI {
         }
 
         private void addDrink() {
-            System.out.println("Enter drink Size (Small/Medium/Large):");
-            String size = scanner.nextLine();
-            currentOrder.addSide(new Drinks(size));
+            String[] validSizes = {"small", "medium", "large"};
+            while (true) {
+                System.out.println("Enter drink Size (Small/Medium/Large) or type home to return:");
+                String sizeInput = scanner.nextLine().trim().toLowerCase();
+
+                if (sizeInput.equalsIgnoreCase("home")) return;
+
+                if (Arrays.asList(validSizes).contains(sizeInput)) {
+                    currentOrder.addSide(new Drinks(sizeInput));
+                    System.out.println("Drink Added!");
+                    break;
+                } else {
+                    System.out.println("Invalid drink size. Please enter Small, Medium, or Large.");
+                }
+            }
         }
 
         private void addChips() {
-            System.out.println("Enter chip type:");
-            String chip = scanner.nextLine();
-            currentOrder.addSide(new Chips(chip));
+            String[] validChips = {"plain", "bbq", "sour cream", "cheddar", "jalapeño"};
+            while (true) {
+                System.out.println("Enter chip type or type 'home' to return: ");
+                System.out.println("plain, bbq, sour cream , cheddar, jalapeño");
+                String chip = scanner.nextLine().trim().toLowerCase();
+
+                if (chip.equalsIgnoreCase("home")) return;
+
+                if (Arrays.asList(validChips).contains(chip)) {
+                    currentOrder.addSide(new Chips(chip));
+                    System.out.println("Chips added");
+                    break;
+                } else {
+                    System.out.println("Invalid chip type. Please choose from list!");
+                }
+            }
         }
 
         private void checkout() {

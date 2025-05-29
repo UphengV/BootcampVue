@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class UI {
@@ -9,6 +10,7 @@ public class UI {
 
         public void run() {
             while (true) {
+                System.out.println("Welcome to Up Yours!");
                 System.out.println("\n1) New Order\n0) Exit");
                 String choice = scanner.nextLine();
                 if (choice.equals("1")) startOrder();
@@ -35,47 +37,122 @@ public class UI {
         }
 
         private void addSandwich() {
-            System.out.println("Choose bread (white/wheat/rye/wrap):");
-            String bread = scanner.nextLine();
+            String[] validBreads = {"white", "wheat", "rye", "wrap"};
+            String bread = "";
+            while (true){
+            System.out.println("Choose bread (white/wheat/rye/wrap) or type home to return:");
+            bread = scanner.nextLine().trim().toLowerCase();
+                if (bread.equalsIgnoreCase("home")) return;
+                if (Arrays.asList(validBreads).contains(bread)) {
+                    break;
+                }
+                System.out.println("Invalid bread choice. Please try again.");
+            }
 
-            System.out.println("Choose size (4/8/12):");
-            String size = scanner.nextLine();
+            String size = "";
+            while (true){
+            System.out.println("Choose size (4/8/12) or type home to return:");
+            size = scanner.nextLine().trim();
+                if (size.equalsIgnoreCase("home")) return;
+                if (size.equals("4") || size.equals("8") || size.equals("12")) {
+                    break;
+                }
+                System.out.println("Invalid size. Please enter 4, 8, or 12.");
+            }
 
-            System.out.println("Toasted? (yes/no):");
-            boolean toasted = scanner.nextLine().equalsIgnoreCase("yes");
+            boolean toasted = false;
+            while (true){
+            System.out.println("Toasted? (yes/no) or type home to return:");
+            String input = scanner.nextLine().trim().toLowerCase();
+                if (input.equalsIgnoreCase("home")) return;
+                if (input.equals("yes")) {
+                    toasted = true;
+                    break;
+                } else if (input.equals("no")) {
+                    toasted = false;
+                    break;
+                } else {
+                    System.out.println("Please answer 'yes' or 'no'.");
+                }
+            }
 
             Sandwich sandwich = new Sandwich(bread, size, toasted);
 
-            System.out.println("Add meats (type 'done' to stop):");
+            //meats
+            String[] validMeats = {"steak", "ham", "salami", "roast beef", "chicken", "bacon"};
+            System.out.println("Add meats (type 'done' to stop, or type home to return):");
+            System.out.println("Meats\n" +
+                    "- steak\n" +
+                    "- ham\n" +
+                    "- salami\n" +
+                    "- roast beef\n" +
+                    "- chicken\n" +
+                    "- bacon");
             while (true) {
-                String meat = scanner.nextLine();
+                String meat = scanner.nextLine().trim().toLowerCase();
+                if (meat.equalsIgnoreCase("home")) return;
                 if (meat.equalsIgnoreCase("done")) break;
-                sandwich.addTopping(new Meats(meat));
+                if (Arrays.asList(validMeats).contains(meat)) {
+                    sandwich.addTopping(new Meats(meat));
+                } else {
+                    System.out.println("Invalid meat. Choose from list.");
+                }
             }
 
-            System.out.println("Add cheeses (type 'done' to stop):");
+            //Cheese
+            String[] validCheeses = {"american", "provolone", "cheddar", "swiss"};
+            System.out.println("Add cheeses (type 'done' to stop, or type home to return):");
+            System.out.println("Cheese\n" +
+                    "- american\n" +
+                    "- provolone\n" +
+                    "- cheddar\n" +
+                    "- swiss");
             while (true) {
-                String cheese = scanner.nextLine();
+                String cheese = scanner.nextLine().toLowerCase();
+                if (cheese.equalsIgnoreCase("home")) return;
                 if (cheese.equalsIgnoreCase("done")) break;
-                sandwich.addTopping(new Cheese(cheese));
+                if (Arrays.asList(validCheeses).contains(cheese)) {
+                    sandwich.addTopping(new Cheese(cheese));
+                } else {
+                    System.out.println("Invalid cheese. Please choose from list!");
+                }
             }
 
-            System.out.println("Add regular toppings (type 'done' to stop):");
+            //regular toppings
+            String[] validToppings = {
+                    "lettuce", "peppers", "onions", "tomatoes", "jalapeños",
+                    "cucumbers", "pickles", "guacamole", "mushrooms"
+            };
+            System.out.println("Add regular toppings (type 'done' to stop or type home to return):");
+            System.out.println(" Regular Toppings\n" +
+                    "- lettuce\n" +
+                    "- peppers\n" +
+                    "- onions\n" +
+                    "- tomatoes\n" +
+                    "- jalapeños\n" +
+                    "- cucumbers\n" +
+                    "- pickles\n" +
+                    "- guacamole\n" +
+                    "- mushrooms");
             while (true) {
-                String topping = scanner.nextLine();
+                String topping = scanner.nextLine().trim().toLowerCase();
+                if (topping.equalsIgnoreCase("home")) return;
                 if (topping.equalsIgnoreCase("done")) break;
-                sandwich.addTopping(new RegularTopping(topping));
+                if (Arrays.asList(validToppings).contains(topping)) {
+                    sandwich.addTopping(new RegularTopping(topping));
+                } else {
+                    System.out.println("Invalid topping! Please choose from the list");
+                }
             }
 
             currentOrder.addSandwich(sandwich);
+            System.out.println("Sandwich added to your order!");
         }
 
         private void addDrink() {
-            System.out.println("Enter drink name:");
-            String name = scanner.nextLine();
-            System.out.println("Size (Small/Medium/Large):");
+            System.out.println("Enter drink Size (Small/Medium/Large):");
             String size = scanner.nextLine();
-            currentOrder.addSide(new Drinks(name, size));
+            currentOrder.addSide(new Drinks(size));
         }
 
         private void addChips() {

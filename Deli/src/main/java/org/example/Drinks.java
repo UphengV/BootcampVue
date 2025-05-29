@@ -3,7 +3,7 @@ package org.example;
 public class Drinks extends Sides {
     private String size;
 
-    public Drinks(String name, String size) {
+    public Drinks(String name) {
         super(name);
         this.size = size;
     }

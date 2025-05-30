@@ -1,0 +1,10 @@
+Order Summary:
+4" wrap (Toasted)
+  - ham
+  - bacon
+  - american
+  - swiss
+  - jalapenos
+  - mushrooms
+Price: $9.0
+Total: $9.0

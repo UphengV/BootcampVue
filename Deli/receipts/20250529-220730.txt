@@ -1,0 +1,18 @@
+Order Summary:
+12" white (Toasted)
+  - steak
+  - ham
+  - roast beef
+  - chicken
+  - bacon
+  - bacon
+  - american
+  - provolone
+  - swiss
+  - peppers
+  - onions
+  - pickles
+  - guacamole
+Price: $33.25
+Side: medium - $2.5
+Total: $35.75

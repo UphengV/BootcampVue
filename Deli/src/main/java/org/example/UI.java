@@ -120,7 +120,7 @@ public class UI {
 
             //regular toppings
             String[] validToppings = {
-                    "lettuce", "peppers", "onions", "tomatoes", "jalapeños",
+                    "lettuce", "peppers", "onions", "tomatoes", "jalapenos",
                     "cucumbers", "pickles", "guacamole", "mushrooms"
             };
             System.out.println("Add regular toppings (type 'done' to stop or type home to return):");
@@ -168,10 +168,10 @@ public class UI {
         }
 
         private void addChips() {
-            String[] validChips = {"plain", "bbq", "sour cream", "cheddar", "jalapeño"};
+            String[] validChips = {"plain", "bbq", "sour cream", "cheddar", "jalapeno"};
             while (true) {
                 System.out.println("Enter chip type or type 'home' to return: ");
-                System.out.println("plain, bbq, sour cream , cheddar, jalapeño");
+                System.out.println("plain, bbq, sour cream , cheddar, jalapeno");
                 String chip = scanner.nextLine().trim().toLowerCase();
 
                 if (chip.equalsIgnoreCase("home")) return;

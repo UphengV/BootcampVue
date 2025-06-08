@@ -4,3 +4,5 @@ date|time|description|vendor|amount
 2003-01-10|10:00|Taco's|Taco Bell|100
 2003-04-10|11:00|Yogurt|Mall|-90
 2010-09-12|08:30|Shoes|Mall|80
+2025-10-10|10:00|Yugioh cards|Gamestop|50
+2003-10-05|02:00|Pokemon cards|Walmart|80

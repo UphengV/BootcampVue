@@ -1,0 +1,14 @@
+Order Summary:
+4" white (Toasted)
+  - steak
+  - ham
+  - bacon
+  - swiss
+  - american
+  - jalapenos
+  - mushrooms
+  - pickles
+Price: $10.0
+Side: large - $3.0
+Side: bbq - $1.5
+Total: $14.5

@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class UserInterface {
-    private Dealership dealership;
+    private VehicleDao vehicleDao;
     private Scanner scanner;
     private ContractDataManager contractManager;
 
-    public UserInterface(Dealership dealership) {
-        this.dealership = dealership;
+    public UserInterface(Dealership dealership, VehicleDao vehicleDao) {
+        this.vehicleDao = vehicleDao;
         scanner = new Scanner(System.in);
         contractManager = new ContractDataManager();
     }
@@ -35,7 +35,7 @@ public class UserInterface {
                 choice = scanner.nextInt();
                 scanner.nextLine();
 
-                switch (choice){
+                switch (choice) {
                     case 1:
                         processAllVehiclesRequest();
                         break;
@@ -58,7 +58,7 @@ public class UserInterface {
                         processGetByVehicleTypeRequest();
                         break;
                     case 8:
-                        processAddVehicleRequest(dealership.getAllVehicles());
+                        processAddVehicleRequest();
                         break;
                     case 9:
                         processRemoveVehicleRequest();
@@ -71,7 +71,7 @@ public class UserInterface {
                     default:
                         System.out.println("what are you up to..?");
                 }
-            }catch (InputMismatchException e){
+            } catch (InputMismatchException e) {
                 System.out.println("Enter a number bro");
             }
 
@@ -83,7 +83,7 @@ public class UserInterface {
         double min = scanner.nextDouble();
         System.out.print("Enter maximum price: ");
         double max = scanner.nextDouble();
-        List<Vehicle> results = dealership.getVehiclesByPrice(min, max);
+        List<Vehicle> results = vehicleDao.searchByPriceRange(min, max);
         for (Vehicle v : results) System.out.println(v);
     }
 
@@ -92,7 +92,7 @@ public class UserInterface {
         String make = scanner.next();
         System.out.print("Enter model: ");
         String model = scanner.next();
-        List<Vehicle> results = dealership.getVehiclesByMakeModel(make, model);
+        List<Vehicle> results = vehicleDao.searchByMakeModel(make, model);
         for (Vehicle v : results) System.out.println(v);
     }
 
@@ -101,14 +101,14 @@ public class UserInterface {
         int min = scanner.nextInt();
         System.out.print("Enter max year: ");
         int max = scanner.nextInt();
-        List<Vehicle> results = dealership.getVehiclesByYear(min, max);
+        List<Vehicle> results = vehicleDao.searchByYearRange(min, max);
         for (Vehicle v : results) System.out.println(v);
     }
 
     public void processGetByColorRequest() {
         System.out.print("Enter color: ");
         String color = scanner.next();
-        List<Vehicle> results = dealership.getVehiclesByColor(color);
+        List<Vehicle> results = vehicleDao.searchByColor(color);
         for (Vehicle v : results) System.out.println(v);
     }
 
@@ -117,40 +117,39 @@ public class UserInterface {
         int min = scanner.nextInt();
         System.out.print("Enter max mileage: ");
         int max = scanner.nextInt();
-        List<Vehicle> results = dealership.getVehiclesByMileage(min, max);
+        List<Vehicle> results = vehicleDao.searchByMileageRange(min, max);
         for (Vehicle v : results) System.out.println(v);
     }
 
     public void processGetByVehicleTypeRequest() {
         System.out.print("Enter vehicle type (TRUCK, SUV, etc.): ");
         String type = scanner.next().toUpperCase();
-        List<Vehicle> results = dealership.getVehiclesByType(VehicleType.valueOf(type));
+        List<Vehicle> results = vehicleDao.searchByType(type);
         for (Vehicle v : results) System.out.println(v);
     }
 
     public void processAllVehiclesRequest() {
-        List<Vehicle> all = dealership.getAllVehicles();
+        List<Vehicle> all = vehicleDao.getAllVehicles();
         for (Vehicle v : all) System.out.println(v);
     }
 
-    public void processAddVehicleRequest(List<Vehicle> vehicles) {
+    public void processAddVehicleRequest() {
 
         try {
-            System.out.println("Enter vehicle VIN (int): ");
-            int vin = scanner.nextInt();
+            System.out.println("Enter vehicle VIN (string): ");
+            String vin = scanner.nextLine().trim();
 
             System.out.println("Enter vehicle year (int): ");
-            int year = scanner.nextInt();
-            scanner.nextLine();
+            int year = Integer.parseInt(scanner.nextLine().trim());
 
             System.out.println("Enter make: ");
-            String make = scanner.nextLine();
+            String make = scanner.nextLine().trim();
 
             System.out.println("Enter model: ");
-            String model = scanner.nextLine();
+            String model = scanner.nextLine().trim();
 
             System.out.println("Enter vehicle type (e.g., SEDAN, SUV, TRUCK): ");
-            String typeInput = scanner.nextLine().toUpperCase();
+            String typeInput = scanner.nextLine().trim().toUpperCase();
             VehicleType vehicleType;
             try {
                 vehicleType = VehicleType.valueOf(typeInput);
@@ -160,91 +159,87 @@ public class UserInterface {
             }
 
             System.out.println("Enter color: ");
-            String color = scanner.nextLine();
+            String color = scanner.nextLine().trim();
 
             System.out.println("Enter odometer (int): ");
-            int odometer = scanner.nextInt();
+            int odometer = Integer.parseInt(scanner.nextLine().trim());
 
             System.out.println("Enter price (double): ");
-            double price = scanner.nextDouble();
+            double price = Double.parseDouble(scanner.nextLine().trim());
 
             Vehicle vehicle = new Vehicle(vin, year, make, model, vehicleType, color, odometer, price);
-            dealership.addVehicle(vehicle);
-            DealershipFileManager.saveDealership(dealership);
 
-            System.out.println("Vehicle added successfully.");
-        } catch (InputMismatchException e) {
-            System.out.println("Invalid input type. Please enter numbers where required.");
-            scanner.nextLine();
-        }
-
-    }
-
-    public void processRemoveVehicleRequest() {
-
-        System.out.print("Enter VIN to remove: ");
-        int vin = scanner.nextInt();
-        Vehicle toRemove = null;
-        for (Vehicle v : dealership.getAllVehicles()) {
-            if (v.getVin() == vin) {
-                toRemove = v;
-                break;
-            }
-        }
-        if (toRemove != null) {
-            dealership.removeVehicle(toRemove);
-            DealershipFileManager.saveDealership(dealership);
-            System.out.println("Vehicle removed.");
-        } else {
-            System.out.println("Vehicle not found.");
-        }
-    }
-        public void processAddContractRequest() {
-            System.out.println("Enter contract type (SALE or LEASE):");
-            String contractType = scanner.nextLine().trim().toUpperCase();
-
-            System.out.println("Enter contract date (YYYYMMDD):");
-            String date = scanner.nextLine().trim();
-
-            System.out.println("Enter customer name:");
-            String customerName = scanner.nextLine().trim();
-
-            System.out.println("Enter customer email:");
-            String customerEmail = scanner.nextLine().trim();
-
-            System.out.println("Enter vehicle VIN:");
-            String vehicleSold = scanner.nextLine().trim();
-
-            System.out.println("Enter vehicle price:");
-            double vehiclePrice;
-            try {
-                vehiclePrice = Double.parseDouble(scanner.nextLine().trim());
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid price. Contract cancelled.");
-                return;
-            }
-
-            Contract contract = null;
-
-            if (contractType.equals("SALE")) {
-                System.out.println("Is the vehicle financed? (YES or NO):");
-                String financedInput = scanner.nextLine().trim().toUpperCase();
-                boolean isFinanced = financedInput.equals("YES");
-
-                contract = new SalesContract(date, customerName, customerEmail, vehicleSold, vehiclePrice, isFinanced);
-
-            } else if (contractType.equals("LEASE")) {
-                contract = new LeaseContract(date, customerName, customerEmail, vehicleSold, vehiclePrice);
-
+            boolean added = vehicleDao.addVehicle(vehicle);
+            if (added) {
+                System.out.println("Vehicle added successfully.");
             } else {
-                System.out.println("Invalid contract type entered.");
-                return;
+                System.out.println("Failed to add vehicle.");
             }
 
-            contractManager.saveContract(contract);
-            System.out.println("Contract saved successfully.");
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input type. Please enter numbers where required.");
+        }
+    }
+        public void processRemoveVehicleRequest() {
+            System.out.print("Enter VIN to remove: ");
+            String vin = scanner.nextLine().trim();
+
+            boolean removed = vehicleDao.removeVehicle(vin);
+            if (removed) {
+                System.out.println("Vehicle removed.");
+            } else {
+                System.out.println("Vehicle not found.");
+            }
+        }
+    public void processAddContractRequest() {
+        System.out.println("Enter contract type (SALE or LEASE):");
+        String contractType = scanner.nextLine().trim().toUpperCase();
+
+        System.out.println("Enter contract date (YYYYMMDD):");
+        String date = scanner.nextLine().trim();
+
+        System.out.println("Enter customer name:");
+        String customerName = scanner.nextLine().trim();
+
+        System.out.println("Enter customer email:");
+        String customerEmail = scanner.nextLine().trim();
+
+        System.out.println("Enter vehicle VIN:");
+        String vehicleSold = scanner.nextLine().trim();
+
+        System.out.println("Enter vehicle price:");
+        double vehiclePrice;
+        try {
+            vehiclePrice = Double.parseDouble(scanner.nextLine().trim());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid price. Contract cancelled.");
+            return;
         }
 
+        Contract contract = null;
+
+        if (contractType.equals("SALE")) {
+            System.out.println("Is the vehicle financed? (YES or NO):");
+            String financedInput = scanner.nextLine().trim().toUpperCase();
+            boolean isFinanced = financedInput.equals("YES");
+
+            contract = new SalesContract(date, customerName, customerEmail, vehicleSold, vehiclePrice, isFinanced);
+
+        } else if (contractType.equals("LEASE")) {
+            contract = new LeaseContract(date, customerName, customerEmail, vehicleSold, vehiclePrice);
+
+        } else {
+            System.out.println("Invalid contract type entered.");
+            return;
+        }
+
+        contractManager.saveContract(contract);
+        System.out.println("Contract saved successfully.");
     }
+    }
+
+
+
+
 
 

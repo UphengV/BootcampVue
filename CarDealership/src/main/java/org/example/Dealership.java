@@ -8,6 +8,10 @@ public class Dealership {
     private String phone;
     private ArrayList<Vehicle> inventory;
 
+    public Dealership() {
+
+    }
+
     public Dealership(String name, String address, String phone) {
         this.name = name;
         this.address = address;

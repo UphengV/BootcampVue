@@ -10,6 +10,7 @@ public class Main {
         String dbPassword = args[1];
         String connectionString = "jdbc:mysql://localhost:3306/dealership";
 
+
         try (Connection connection = DriverManager.getConnection(connectionString, dbUserName, dbPassword)) {
 
             VehicleDao vehicleDao = new VehicleDao(connection);
